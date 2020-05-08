@@ -70,14 +70,12 @@ $('.article-li').off('click.autoplay');
 $('.article-li').on('click.autoplay', function () {
   function getCurrentCourseDuration(){
     var dtd = $.Deferred();
-    var elapsed = 0;
     var interval1 = window.setInterval(function(){
-      elapsed += 5;
       try{
         var duration = player.getDuration();
         var position = player.getPosition();
         if(duration != null && duration > 0){
-          dtd.resolve({duration: duration - position + elapsed, realDuration: duration});
+          dtd.resolve({duration: duration - position, realDuration: duration});
           console.log('duration: ' + duration);
           console.log('position: ' + position);
           window.clearInterval(interval1);
