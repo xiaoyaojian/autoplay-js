@@ -77,7 +77,7 @@ $('.article-li').on('click.autoplay', function () {
         var duration = player.getDuration();
         var position = player.getPosition();
         if(duration != null && duration > 0){
-          dtd.resolve(duration - position + elapsed);
+          dtd.resolve({duration: duration - position + elapsed, realDuration: duration});
           console.log('duration: ' + duration);
           console.log('position: ' + position);
           window.clearInterval(interval1);
@@ -89,20 +89,27 @@ $('.article-li').on('click.autoplay', function () {
     return dtd.promise();
   }
 
-  function autoClickNextCourse(duration){
+  function autoClickNextCourse(data){
     window.setTimeout(function () {
-      $('.article-li').each(function (idx, item) {
-        if ($(item).hasClass('cur')) {
-          console.log('GO TO NEXT COURSE...');
-          $($('.article-li').get(idx + 1)).click();
-          return false;
+      var interval2 = window.setInterval(function(){
+        console.log('current position: ' + player.getPosition());
+        if(data.realDuration<=player.getPosition()){
+          window.clearInterval(interval2);
+          $('.article-li').each(function (idx, item) {
+            if ($(item).hasClass('cur')) {
+              console.log('GO TO NEXT COURSE...');
+              $($('.article-li').get(idx + 1)).click();
+              return false;
+            }
+          });
         }
-      })
-    }, duration* 1000 + Math.random()*1000 + 5000) /*5000这里，根据自己网速情况，适当增加或者减少，网速慢，需要更长延迟 */;
+      },2000)
+      
+    }, data.duration* 1000 + Math.random()*1000) ;
   }
 
-  getCurrentCourseDuration().done(function(duration){
-    autoClickNextCourse(duration)
+  getCurrentCourseDuration().done(function(data){
+    autoClickNextCourse(data)
   });
 });
 
