@@ -95,16 +95,18 @@ $('.article-li').on('click.autoplay', function () {
         console.log('current position: ' + player.getPosition());
         if(data.realDuration<=player.getPosition()){
           window.clearInterval(interval2);
-          $('.article-li').each(function (idx, item) {
-            if (!$(item).hasClass('yes2')) {
-              console.log('GO TO NEXT COURSE...');
-              $(item).click();
-              return false;
-            }
-          });
+          window.setTimeout(function(){
+            $('.article-li').each(function (idx, item) {
+              if (!$(item).hasClass('yes2')) {
+                console.log('GO TO NEXT COURSE...');
+                $(item).click();
+                return false;
+              }
+            });
+          }, 5000);
         }
       },2000);
-    }, data.duration* 1000 + Math.random()*1000 + 5000)  ;
+    }, data.duration* 1000 + Math.random()*1000)  ;
   }
 
   getCurrentCourseDuration().done(function(data){
