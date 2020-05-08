@@ -96,16 +96,15 @@ $('.article-li').on('click.autoplay', function () {
         if(data.realDuration<=player.getPosition()){
           window.clearInterval(interval2);
           $('.article-li').each(function (idx, item) {
-            if (!$(item).hasClass('cur')) {
+            if (!$(item).hasClass('yes2')) {
               console.log('GO TO NEXT COURSE...');
               $(item).click();
               return false;
             }
           });
         }
-      },2000)
-      
-    }, data.duration* 1000 + Math.random()*1000) ;
+      },2000);
+    }, data.duration* 1000 + Math.random()*1000 + 5000)  ;
   }
 
   getCurrentCourseDuration().done(function(data){
