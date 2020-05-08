@@ -96,9 +96,9 @@ $('.article-li').on('click.autoplay', function () {
         if(data.realDuration<=player.getPosition()){
           window.clearInterval(interval2);
           $('.article-li').each(function (idx, item) {
-            if ($(item).hasClass('cur')) {
+            if (!$(item).hasClass('cur')) {
               console.log('GO TO NEXT COURSE...');
-              $($('.article-li').get(idx + 1)).click();
+              $(item).click();
               return false;
             }
           });
@@ -113,12 +113,11 @@ $('.article-li').on('click.autoplay', function () {
   });
 });
 
-var lastIndex = -1;
 $('.article-li').each(function (idx, item) {
-  if ($(item).hasClass('yes2')) {
-    lastIndex = idx;
+  if (!$(item).hasClass('yes2')) {
+    $(item).click();
+    console.log('GO TO FIRST COURSE...');
   }
 });
 
-$($('.article-li').get(lastIndex + 1)).click();
-console.log('GO TO FIRST COURSE...');
+
