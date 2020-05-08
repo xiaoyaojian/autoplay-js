@@ -90,6 +90,8 @@ $('.article-li').on('click.autoplay', function () {
   }
 
   function autoClickNextCourse(data){
+    var nextClickDelay = data.duration* 1000 + Math.random()*1000;
+    console.info('Next course will start after ' + nextClickDelay + 'ms')
     window.setTimeout(function () {
       var interval2 = window.setInterval(function(){
         console.log('current position: ' + player.getPosition());
@@ -98,7 +100,7 @@ $('.article-li').on('click.autoplay', function () {
           window.setTimeout(function(){
             $('.article-li').each(function (idx, item) {
               if (!$(item).hasClass('yes2')) {
-                console.log('GO TO NEXT COURSE...');
+                console.info('GO TO NEXT COURSE...');
                 $(item).click();
                 return false;
               }
@@ -106,7 +108,7 @@ $('.article-li').on('click.autoplay', function () {
           }, 5000);
         }
       },2000);
-    }, data.duration* 1000 + Math.random()*1000)  ;
+    }, nextClickDelay)  ;
   }
 
   getCurrentCourseDuration().done(function(data){
@@ -117,7 +119,7 @@ $('.article-li').on('click.autoplay', function () {
 $('.article-li').each(function (idx, item) {
   if (!$(item).hasClass('yes2')) {
     $(item).click();
-    console.log('GO TO FIRST COURSE...');
+    console.info('GO TO FIRST COURSE...');
     return false;
   }
 });
