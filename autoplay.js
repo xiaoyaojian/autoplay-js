@@ -117,6 +117,7 @@ $('.article-li').each(function (idx, item) {
   if (!$(item).hasClass('yes2')) {
     $(item).click();
     console.log('GO TO FIRST COURSE...');
+    return false;
   }
 });
 
